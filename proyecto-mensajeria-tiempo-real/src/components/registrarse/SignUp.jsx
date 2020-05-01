@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import LinkRouter from 'react-router-dom/Link';
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -118,7 +120,9 @@ function SignUp() {
           <Grid container justify="flex-end">
             <Grid item>
               <Link href="#" variant="body2">
+                <LinkRouter to={'/Inicio'}>
                 Already have an account? Sign in  
+                </LinkRouter>
               </Link>
             </Grid>
           </Grid>
