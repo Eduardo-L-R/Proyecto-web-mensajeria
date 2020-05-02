@@ -1,7 +1,7 @@
 import React from 'react'
-import Navbar from './Navbar'
-import SearchBar from './SearchBar'
-import ConversationList from './ConversationList'
+import Navbar from './Componentes-Sidebar/Navbar';
+import SearchBar from './Componentes-Sidebar/SearchBar';
+import ConversationList from './Componentes-Sidebar/ConversationList';
 
 function SideBar() {
   return (
