@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Switch, Link} from 'react-router-dom'
+import {Route, Switch} from 'react-router-dom'
 import IniciarSession from './iniciar-sesion/SignIn';
 import Registrarse from './registrarse/SignUp';
 // import PanelDeInicio from './panel-inicio/'

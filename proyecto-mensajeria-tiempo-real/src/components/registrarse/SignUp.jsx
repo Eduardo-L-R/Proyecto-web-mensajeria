@@ -13,6 +13,14 @@ import Container from '@material-ui/core/Container';
 
 import LinkRouter from 'react-router-dom/Link';
 
+//Dependencias de redux importadas
+import { connect } from "react-redux";
+import {
+  setCurrentRegister,
+  setCurrentLogin,
+  register
+} from "../../store/actions/user-actions";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -46,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SignUp() {
+function SignUp(props) {
   const classes = useStyles();
 
   return (
@@ -71,6 +79,7 @@ function SignUp() {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                onChange={(e)=>props.setCurrentRegister(e)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -82,6 +91,7 @@ function SignUp() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                onChange={(e)=>props.setCurrentRegister(e)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -93,6 +103,7 @@ function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={(e)=>props.setCurrentRegister(e)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -105,6 +116,7 @@ function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={(e)=>props.setCurrentRegister(e)}
               />
             </Grid>
           </Grid>
@@ -114,6 +126,8 @@ function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={(e)=>{ e.preventDefault();
+                            props.register();}}
           >
             Register
           </Button>
@@ -135,4 +149,22 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+// Acciones y states de redux importadas
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setCurrentRegister: event => dispatch(setCurrentRegister(event)),
+    setCurrentLogin: event => dispatch(setCurrentLogin(event)),
+    register: () => dispatch(register())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignUp);

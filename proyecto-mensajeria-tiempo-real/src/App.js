@@ -8,44 +8,12 @@ import './App.css';
 // import ChatContainer from './components/panel-inicio/contenedor-chat/ChatContainer';
 import {Enrutador} from './components/enrutador';
 
-//Dependencias de redux importadas
-import { connect } from "react-redux";
-import {
-  setCurrentRegister,
-  setCurrentLogin,
-  register
-} from "./store/actions/user-actions";
-
-
 function App() {
   return (
     <div>
       <Enrutador />
-      {/* <SignIn /> */}
-      {/* <SignUp /> */}
-      {/* <Sidebar /> */}
-      {/* <ChatContainer /> */}
     </div>
   );
 }
 
-
-// Acciones y states de redux importadas
-const mapStateToProps = state => {
-  return {
-    user: state.user
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    setCurrentRegister: event => dispatch(setCurrentRegister(event)),
-    setCurrentLogin: event => dispatch(setCurrentLogin(event)),
-    register: () => dispatch(register())
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default App;

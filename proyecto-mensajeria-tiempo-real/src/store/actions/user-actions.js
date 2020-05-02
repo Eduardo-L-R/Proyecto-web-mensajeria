@@ -20,6 +20,15 @@ export const setCurrentLogin = event => {
   };
 };
 
+export const setCurrentClear = (stateToClear) => {
+  if(stateToClear === "clearRegister"){
+    return {type: "CLEAR_REGISTER"}
+  }
+  else if(stateToClear === "clearLogin"){
+    return {type: "CLEAR_LOGIN"}
+  }
+}
+
 export const register = () => {
   return (dispatch, getState) => {
     let { email, password } = getState().user.currentRegister;
@@ -29,5 +38,6 @@ export const register = () => {
       var errorMessage = error.message;
       console.log(errorCode, errorMessage);
     });
+    dispatch().setCurrentClear("clearRegister");
   };
 };

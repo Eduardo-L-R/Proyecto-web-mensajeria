@@ -21,6 +21,18 @@ const INITIAL_STATE = {
             [action.payload.name]: action.payload.value
           }
         };
+      case "CLEAR_REGISTER":
+        return {
+          ...previousState,
+          currentRegister: {
+          }
+        };
+      case "CLEAR_LOGIN":
+        return {
+          ...previousState,
+          currentLogin: {
+          }
+        };
       default:
         return previousState;
     }
