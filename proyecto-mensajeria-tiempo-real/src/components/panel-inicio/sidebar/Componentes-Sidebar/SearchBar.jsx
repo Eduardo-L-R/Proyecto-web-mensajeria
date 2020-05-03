@@ -6,7 +6,7 @@ import SearchIcon from '@material-ui/icons/Search'
 const useStyles = makeStyles(theme => ({
   container: { 
     padding: theme.spacing(1),
-    backgroundColor: "#f5f5f5"
+    backgroundColor: "#fafafa"
   },
   searchBar: {
     display: 'flex',
@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: theme.spacing(2)
   },
   searchIcon: {
-    color: "#000"
+    color: "#616161"
   }
 }))
 

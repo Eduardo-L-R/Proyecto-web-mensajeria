@@ -1,11 +1,28 @@
 import React from 'react';
+import Navbar from './Componentes-ChatContainer/Navbar';
+import MessageList from './Componentes-ChatContainer/MessageList';
+import { makeStyles } from '@material-ui/core/styles'
+import MessageEditor from './Componentes-ChatContainer/MessageEditor';
 
-export default function ChatContainer(){
-    return(
-        <div style={{border:"solid 2px black"}}>
-        <h1 style={{textAlign:"center"}}>PENDIENTE POR DESARROLLAR</h1>
-        <h1 style={{textAlign:"center"}}>ChatContainer</h1>
-        <h1 style={{textAlign:"center"}}>PENDIENTE POR DESARROLLAR</h1>
-        </div>
-    )
+const useStyles = makeStyles({
+  container: {
+    flex: 2,
+    height: "100vh",
+    backgroundColor: "#fafafa",
+    display: "flex",
+    flexFlow: "column nowrap"
+  }
+})
+
+function ChatContainer(){
+  const classes = useStyles();
+  return(
+    <div className={classes.container}>
+      <Navbar />
+      <MessageList />
+      <MessageEditor />
+    </div>
+ )
 };
+
+export default ChatContainer;

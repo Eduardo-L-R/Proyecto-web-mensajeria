@@ -5,8 +5,17 @@ import Registrarse from './registrarse/SignUp';
 import Sidebar from './panel-inicio/sidebar/SideBar';
 import ChatContainer from './panel-inicio/contenedor-chat/ChatContainer';
 // import PanelDeInicio from './panel-inicio/'
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyle = makeStyles({
+  container: {
+    display: "flex",
+    flexFlow: "row wrap"
+  }
+})
 
 export const Enrutador = ()=>{
+  const classes = useStyle();
     return(
         <Switch>
             <Route exact path="/">
@@ -19,8 +28,10 @@ export const Enrutador = ()=>{
                 <Registrarse />
             </Route>
             <Route path="/Panel-Inicio">
+              <div className={classes.container}>
                 <Sidebar />
                 <ChatContainer />
+              </div>
             </Route>
         </Switch>
     )
