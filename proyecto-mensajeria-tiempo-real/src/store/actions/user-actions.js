@@ -29,6 +29,21 @@ export const setCurrentClear = (stateToClear) => {
   }
 }
 
+export const signIn = () => {
+  return (dispatch, getState) => {
+    let { email, password } = getState().user.currentLogin;
+    auth.signInWithEmailAndPassword(email, password).then().
+    catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+      // ...
+    });
+    dispatch(setCurrentClear("clearLogin"));
+  };
+};
+
 export const register = () => {
   return (dispatch, getState) => {
     let { email, password } = getState().user.currentRegister;

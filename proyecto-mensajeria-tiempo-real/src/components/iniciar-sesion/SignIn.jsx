@@ -15,6 +15,16 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import LinkRouter from 'react-router-dom/Link';
 
+//Dependencias de redux importadas
+import { connect } from "react-redux";
+import {
+  setCurrentRegister,
+  setCurrentLogin,
+  register,
+  signIn
+} from "../../store/actions/user-actions";
+
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -59,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SignIn() {
+function SignIn(props) {
   const classes = useStyles();
 
   return (
@@ -80,6 +90,8 @@ function SignIn() {
               margin="normal"
               required
               fullWidth
+              value={props.user.currentLogin.email}
+              onChange={(e)=>props.setCurrentLogin(e)}
               id="email"
               label="Email Address"
               name="email"
@@ -91,6 +103,8 @@ function SignIn() {
               margin="normal"
               required
               fullWidth
+              value={props.user.currentLogin.password}
+              onChange={(e)=>props.setCurrentLogin(e)}
               name="password"
               label="Password"
               type="password"
@@ -107,6 +121,8 @@ function SignIn() {
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={(e)=>{ e.preventDefault();
+                props.signIn();}}>
             >
               Sign In
             </Button>
@@ -126,6 +142,7 @@ function SignIn() {
             </Grid>
             <Box mt={5}>
               <Copyright />
+              
             </Box>
           </form>
         </div>
@@ -134,4 +151,23 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+// Acciones y states de redux importadas
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setCurrentRegister: event => dispatch(setCurrentRegister(event)),
+    setCurrentLogin: event => dispatch(setCurrentLogin(event)),
+    register: () => dispatch(register()),
+    signIn: () => dispatch(signIn())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignIn);
