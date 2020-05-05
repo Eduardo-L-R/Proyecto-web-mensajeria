@@ -38,6 +38,6 @@ export const register = () => {
       var errorMessage = error.message;
       console.log(errorCode, errorMessage);
     });
-    dispatch().setCurrentClear("clearRegister");
+    dispatch(setCurrentClear("clearRegister"));
   };
 };

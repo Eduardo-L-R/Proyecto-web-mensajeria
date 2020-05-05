@@ -76,6 +76,7 @@ function SignUp(props) {
                 variant="outlined"
                 required
                 fullWidth
+                value={props.user.currentRegister.firstName}
                 id="firstName"
                 label="First Name"
                 autoFocus
@@ -87,6 +88,7 @@ function SignUp(props) {
                 variant="outlined"
                 required
                 fullWidth
+                value={props.user.currentRegister.lastName}
                 id="lastName"
                 label="Last Name"
                 name="lastName"
@@ -99,6 +101,7 @@ function SignUp(props) {
                 variant="outlined"
                 required
                 fullWidth
+                value={props.user.currentRegister.email}
                 id="email"
                 label="Email Address"
                 name="email"
@@ -111,6 +114,7 @@ function SignUp(props) {
                 variant="outlined"
                 required
                 fullWidth
+                value={props.user.currentRegister.password}
                 name="password"
                 label="Password"
                 type="password"

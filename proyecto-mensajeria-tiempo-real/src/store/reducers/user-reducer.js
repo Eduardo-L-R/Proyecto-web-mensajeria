@@ -25,12 +25,20 @@ const INITIAL_STATE = {
         return {
           ...previousState,
           currentRegister: {
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
           }
         };
       case "CLEAR_LOGIN":
         return {
           ...previousState,
           currentLogin: {
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
           }
         };
       default:
