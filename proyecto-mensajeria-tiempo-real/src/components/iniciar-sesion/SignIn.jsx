@@ -13,7 +13,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-import LinkRouter from 'react-router-dom/Link';
+//Dependencias de react-router-dom importadas
+import {Link as LinkRouter} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 //Dependencias de redux importadas
 import { connect } from "react-redux";
@@ -71,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
 
 function SignIn(props) {
   const classes = useStyles();
-
+  let history = useHistory();
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -122,8 +124,9 @@ function SignIn(props) {
               color="primary"
               className={classes.submit}
               onClick={(e)=>{ e.preventDefault();
-                props.signIn();}}>
-            >
+                              props.signIn( (ruta) => history.push(ruta));
+               }}>
+            
               Sign In
             </Button>
             <Grid container>
@@ -151,6 +154,7 @@ function SignIn(props) {
   );
 }
 
+
 // Acciones y states de redux importadas
 const mapStateToProps = state => {
   return {
@@ -163,7 +167,7 @@ const mapDispatchToProps = dispatch => {
     setCurrentRegister: event => dispatch(setCurrentRegister(event)),
     setCurrentLogin: event => dispatch(setCurrentLogin(event)),
     register: () => dispatch(register()),
-    signIn: () => dispatch(signIn())
+    signIn: (callback) => dispatch(signIn(callback))
   };
 };
 

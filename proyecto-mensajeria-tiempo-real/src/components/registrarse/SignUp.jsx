@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-import LinkRouter from 'react-router-dom/Link';
+import {Link as LinkRouter} from 'react-router-dom';
 
 //Dependencias de redux importadas
 import { connect } from "react-redux";

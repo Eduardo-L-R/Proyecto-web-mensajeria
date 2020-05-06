@@ -1,5 +1,6 @@
 import auth from "../../firebase/config-utils";
 
+
 export const setCurrentRegister = event => {
   return {
     type: "SET_CURRENT_REGISTER",
@@ -29,10 +30,22 @@ export const setCurrentClear = (stateToClear) => {
   }
 }
 
-export const signIn = () => {
+export const userInformation = (information) => {
+  return {type : "STORAGE_USER_INFO",
+          payload: information}; 
+}
+
+
+
+
+
+
+export const signIn = (callback) => {
   return (dispatch, getState) => {
     let { email, password } = getState().user.currentLogin;
-    auth.signInWithEmailAndPassword(email, password).then().
+    auth.signInWithEmailAndPassword(email, password).then(
+      alert("autentificado correctamente")
+    ).
     catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;
@@ -40,8 +53,38 @@ export const signIn = () => {
       console.log(errorCode, errorMessage);
       // ...
     });
-    dispatch(setCurrentClear("clearLogin"));
+    auth.onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        // var displayName = user.displayName;
+        var email = user.email;
+        // var emailVerified = user.emailVerified;
+        // var photoURL = user.photoURL;
+        // var isAnonymous = user.isAnonymous;
+        // var uid = user.uid;
+        // var providerData = user.providerData;
+        var information = {
+          // "displayName": displayName,
+          "email": email,
+          // "emailVerified": emailVerified,
+          // "photoURL": photoURL,
+          // "isAnonymous": isAnonymous,
+          // "uid": uid,
+          // "providerData": providerData,
+        };
+        dispatch(userInformation(information));
+        callback("/Panel-inicio");
+        // ...
+      } else {
+        // User is signed out.
+        // ...
+        dispatch(setCurrentClear("clearLogin"));
+        alert("Error al autentificar");
+      }
+    });
+
   };
+  
 };
 
 export const register = () => {

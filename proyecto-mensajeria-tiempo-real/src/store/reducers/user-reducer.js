@@ -41,6 +41,11 @@ const INITIAL_STATE = {
             password: "",
           }
         };
+      case "STORAGE_USER_INFO":
+        return{
+          ...previousState,
+          currentLogin: action.payload
+        }
       default:
         return previousState;
     }
