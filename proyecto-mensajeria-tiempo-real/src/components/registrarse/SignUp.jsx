@@ -11,7 +11,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+//Dependencias de react-router-dom importadas
 import {Link as LinkRouter} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 //Dependencias de redux importadas
 import { connect } from "react-redux";
@@ -56,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 
 function SignUp(props) {
   const classes = useStyles();
-
+  let history = useHistory();
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -131,7 +133,7 @@ function SignUp(props) {
             color="primary"
             className={classes.submit}
             onClick={(e)=>{ e.preventDefault();
-                            props.register();}}
+                            props.register((ruta) => history.push(ruta));}}
           >
             Register
           </Button>
@@ -164,7 +166,7 @@ const mapDispatchToProps = dispatch => {
   return {
     setCurrentRegister: event => dispatch(setCurrentRegister(event)),
     setCurrentLogin: event => dispatch(setCurrentLogin(event)),
-    register: () => dispatch(register())
+    register: (callback) => dispatch(register(callback))
   };
 };
 

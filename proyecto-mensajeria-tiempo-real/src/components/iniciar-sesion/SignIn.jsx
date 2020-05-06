@@ -124,7 +124,7 @@ function SignIn(props) {
               color="primary"
               className={classes.submit}
               onClick={(e)=>{ e.preventDefault();
-                              props.signIn( (ruta) => history.push(ruta));
+                              props.signIn((ruta) => history.push(ruta));
                }}>
             
               Sign In

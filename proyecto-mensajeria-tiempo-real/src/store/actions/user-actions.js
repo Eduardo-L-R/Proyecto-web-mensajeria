@@ -43,59 +43,48 @@ export const userInformation = (information) => {
 export const signIn = (callback) => {
   return (dispatch, getState) => {
     let { email, password } = getState().user.currentLogin;
-    auth.signInWithEmailAndPassword(email, password).then(
-      alert("autentificado correctamente")
+    auth.signInWithEmailAndPassword(email, password).then(() =>
+      {alert("autentificado correctamente");
+      callback("/Panel-inicio");
+      auth.onAuthStateChanged(function(user) {
+        if (user) {
+          var email = user.email;
+          var information = {
+            "email": email,
+          };
+          dispatch(userInformation(information));
+        } else {
+          // User is signed out.
+        }
+        });
+      }
     ).
     catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+      alert(errorCode, errorMessage);
+      dispatch(setCurrentClear("clearLogin"));
       // ...
     });
-    auth.onAuthStateChanged(function(user) {
-      if (user) {
-        // User is signed in.
-        // var displayName = user.displayName;
-        var email = user.email;
-        // var emailVerified = user.emailVerified;
-        // var photoURL = user.photoURL;
-        // var isAnonymous = user.isAnonymous;
-        // var uid = user.uid;
-        // var providerData = user.providerData;
-        var information = {
-          // "displayName": displayName,
-          "email": email,
-          // "emailVerified": emailVerified,
-          // "photoURL": photoURL,
-          // "isAnonymous": isAnonymous,
-          // "uid": uid,
-          // "providerData": providerData,
-        };
-        dispatch(userInformation(information));
-        callback("/Panel-inicio");
-        // ...
-      } else {
-        // User is signed out.
-        // ...
-        dispatch(setCurrentClear("clearLogin"));
-        alert("Error al autentificar");
-      }
-    });
-
   };
-  
 };
 
-export const register = () => {
+export const register = (callback) => {
   return (dispatch, getState) => {
     let { email, password } = getState().user.currentRegister;
-    auth.createUserWithEmailAndPassword(email, password).catch(function(error) {
+    auth.createUserWithEmailAndPassword(email, password)
+    .then(()=>{
+      alert("Registrado exitosamente");
+      callback("/");
+    })
+    .catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+      alert(errorCode, errorMessage);
+      dispatch(setCurrentClear("clearRegister"));
     });
-    dispatch(setCurrentClear("clearRegister"));
+    
   };
 };

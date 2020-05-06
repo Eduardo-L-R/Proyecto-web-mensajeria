@@ -34,10 +34,10 @@ const INITIAL_STATE = {
       case "CLEAR_LOGIN":
         return {
           ...previousState,
-          currentLogin: {
-            firstName: "",
-            lastName: "",
-            email: "",
+          currentLogin: {...previousState.currentLogin,
+            // firstName: "",
+            // lastName: "",
+            // email: "",
             password: "",
           }
         };
