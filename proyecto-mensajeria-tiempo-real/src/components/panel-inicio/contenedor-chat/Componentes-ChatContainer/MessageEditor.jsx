@@ -34,25 +34,6 @@ const useStyles = makeStyles({
   }
 })
 
-/* agregarDatos = async () => {    
-  //Agregar una tarea a la base de datos con el id del documento que se va agregar
-  try{
-    let refNewTask = await firebase.firestore().collection('Jugadores').doc(this.state.jugador.nombre); 
-    await refNewTask.set(
-      this.state.jugador
-    ).then(respuesta =>{alert("actualizado correctamente",respuesta)}).catch(error=>{alert("no se actualizo correctamente la información",error)});
-  }catch(error){
-    alert("No se ha podido agregar informacion al usuario: ", error.message);
-  }
-  // Se actualiza la informacion para mostrar los nuevos valores
-  this.obtenerDatos(this.state.jugador.nombre,(datosJugador) => {
-    var arreglo = this.state;
-    arreglo.jugador = datosJugador;
-    this.setState({arreglo});
-  });
-} */
-
-
 function MessageEditor(props) {
   const classes = useStyles();
 

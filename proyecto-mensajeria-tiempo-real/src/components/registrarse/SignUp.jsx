@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import firebase from 'firebase';
+
 //Dependencias de react-router-dom importadas
 import {Link as LinkRouter} from 'react-router-dom';
 import {useHistory} from 'react-router-dom';
@@ -59,6 +61,61 @@ const useStyles = makeStyles((theme) => ({
 function SignUp(props) {
   const classes = useStyles();
   let history = useHistory();
+
+  function agregandoUsuarioDB(firstName, lastName, email){
+    firebase.firestore().collection(firstName +" "+lastName).add({
+      Admin: "Creado para generar coleccion.",
+      }
+      )
+      .then(function(docRef) {
+          alert("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+    });
+    firebase.firestore().collection(firstName +" "+lastName).doc("Contactos").set({
+        [firstName +" "+lastName]: ["mensajes bajo", "hora", firstName +" "+lastName],
+        }
+      )
+      .then(function(docRef) {
+          alert("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+    });
+    firebase.firestore().collection(firstName +" "+lastName).doc(firstName +" "+lastName).set({
+      1: ["mensajes bajo", "hora", "Bienvenido, los mensajes aca son privados"],
+      }
+      )
+      .then(function(docRef) {
+          alert("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+    });
+    firebase.firestore().collection("Usuarios").doc(firstName +" "+lastName).set({
+      Email: email,
+      Nombre: firstName +" "+lastName,
+      PhotoURL: "www.google.com",
+      otros: "....",
+      })
+      .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+    });
+    firebase.firestore().collection("emailUsuarios").doc(email).set({
+      Nombre: firstName +" "+lastName,
+      })
+      .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+    });
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -133,6 +190,7 @@ function SignUp(props) {
             color="primary"
             className={classes.submit}
             onClick={(e)=>{ e.preventDefault();
+                            agregandoUsuarioDB(props.user.currentRegister.firstName,props.user.currentRegister.lastName,props.user.currentRegister.email);
                             props.register((ruta) => history.push(ruta));}}
           >
             Register
