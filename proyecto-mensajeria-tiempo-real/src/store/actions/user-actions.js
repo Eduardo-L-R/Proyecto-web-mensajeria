@@ -21,6 +21,25 @@ export const setCurrentLogin = event => {
   };
 };
 
+export const setUser = information => {
+  return {
+    type: "SET_CURRENT_USER",
+    payload: {
+      Information : information,
+    }
+  };
+};
+
+export const setContacts = (contacts) => {
+  return {type : "SET_USER_CONTACTS",
+          payload: contacts}; 
+}
+
+export const setMessages = (messages,contacto) => {
+  return {type : "SET_USER_MESSAGES",
+          payload: {messages,contacto}}; 
+}
+
 export const setCurrentClear = (stateToClear) => {
   if(stateToClear === "clearRegister"){
     return {type: "CLEAR_REGISTER"}
@@ -34,11 +53,6 @@ export const userInformation = (information) => {
   return {type : "STORAGE_USER_INFO",
           payload: information}; 
 }
-
-
-
-
-
 
 export const signIn = (callback) => {
   return (dispatch, getState) => {
