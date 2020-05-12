@@ -40,12 +40,20 @@ export const setMessages = (messages,contacto) => {
           payload: {messages,contacto}}; 
 }
 
+export const setEditingMessage = (message) => {
+  return {type : "SET_EDITING_MESSAGE",
+          payload: {message}}; 
+}
+
 export const setCurrentClear = (stateToClear) => {
   if(stateToClear === "clearRegister"){
     return {type: "CLEAR_REGISTER"}
   }
   else if(stateToClear === "clearLogin"){
     return {type: "CLEAR_LOGIN"}
+  }
+  else if(stateToClear === "clearEditingMessage"){
+    return {type: "CLEAR_EDITING_MESSAGE"}
   }
 }
 

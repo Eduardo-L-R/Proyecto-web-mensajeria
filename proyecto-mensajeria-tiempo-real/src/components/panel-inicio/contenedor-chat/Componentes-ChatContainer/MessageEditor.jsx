@@ -10,10 +10,12 @@ import { connect } from "react-redux";
 import {
   setCurrentRegister,
   setCurrentLogin,
+  setCurrentClear,
   setUser,
   setMessages,
+  setEditingMessage,
   register,
-  signIn
+  signIn,
 } from "../../../../store/actions/user-actions";
 
 const useStyles = makeStyles({
@@ -43,7 +45,7 @@ function MessageEditor(props) {
         [Object.keys(props.Mensajes).length+1]: [
           "right",
           "12:50",
-          "mensaje agregado 2"
+          props.editingMessage
         ]}
       )
       .then(function(docRef) {
@@ -56,7 +58,7 @@ function MessageEditor(props) {
         [Object.keys(props.Mensajes).length+1]: [
           "left",
           "12:50",
-          "mensaje agregado 2"
+          props.editingMessage
         ]}
       )
       .then(function(docRef) {
@@ -65,6 +67,7 @@ function MessageEditor(props) {
       .catch(function(error) {
           console.error("Error adding document: ", error);
       });
+      props.setCurrentClear("clearEditingMessage");
     }
   }
 
@@ -101,8 +104,8 @@ function MessageEditor(props) {
           <IconButton className={classes.icon}>            
             <EmojiIcon />
           </IconButton>
-          <InputBase className={classes.input} multiline/>
-          <IconButton onClick={()=>limpiarChat()} className={classes.icon}>            
+          <InputBase value={props.editingMessage} onChange={(e)=>props.setEditingMessage(e.target.value)} className={classes.input} multiline/>
+          <IconButton onClick={()=>limpiarChat()} className={classes.icon}>
             <MicIcon />
           </IconButton>
           <IconButton onClick={()=>nuevoMensaje()} className={classes.icon}>            
@@ -123,6 +126,7 @@ const mapStateToProps = state => {
     Contacts: state.user.currentContacts,
     Mensajes: state.user.currentMensajes,
     ContactoMensajes: state.user.currentContactMensaje,
+    editingMessage: state.user.currentEditingMessage,
   };
 };
 
@@ -130,9 +134,11 @@ const mapDispatchToProps = dispatch => {
   return {
     setCurrentRegister: event => dispatch(setCurrentRegister(event)),
     setCurrentLogin: event => dispatch(setCurrentLogin(event)),
+    setCurrentClear: clean => dispatch(setCurrentClear(clean)),
     register: () => dispatch(register()),
     signIn: (callback) => dispatch(signIn(callback)),
-    setUser: (informacion) => dispatch(setUser(informacion))
+    setUser: (informacion) => dispatch(setUser(informacion)),
+    setEditingMessage: (mensajeNuevo) => dispatch(setEditingMessage(mensajeNuevo))
   };
 };
 

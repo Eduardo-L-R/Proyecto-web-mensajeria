@@ -5,6 +5,7 @@ const INITIAL_STATE = {
     currentContacts: null,
     currentContactMensaje: null,
     currentMensajes: null,
+    currentEditingMessage: "",
   };
   
   const userReducer = (previousState = INITIAL_STATE, action) => {
@@ -45,6 +46,11 @@ const INITIAL_STATE = {
           currentMensajes: action.payload.messages,
           currentContactMensaje: action.payload.contacto
         };
+      case "SET_EDITING_MESSAGE":
+        return{
+          ...previousState,
+          currentEditingMessage: action.payload.message,
+        };
       case "CLEAR_REGISTER":
         return {
           ...previousState,
@@ -65,11 +71,16 @@ const INITIAL_STATE = {
             password: "",
           }
         };
+      case "CLEAR_EDITING_MESSAGE":
+        return {
+          ...previousState,
+          currentEditingMessage: "",
+        };
       case "STORAGE_USER_INFO":
         return{
           ...previousState,
           currentLogin: action.payload
-        }
+        };
       default:
         return previousState;
     }
