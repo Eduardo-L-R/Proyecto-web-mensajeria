@@ -21,16 +21,21 @@ import {
 } from "../../../../store/actions/user-actions";
 
 const useStyles = makeStyles(theme => ({
-  avatar: {
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2) 
+  btn: {
+    padding: theme.spacing(1.5)
   },
-  time: {
-    marginRight: theme.spacing(2)
+  text: {
+    textAlign: "left",
+  },
+  item: {
+    margin: 0,
+    padding: 0
   },
   container: {
     overflow: "auto",
-    flex: 1
+    flex: 1,
+    padding: 0,
+    margin: 0
   }
 }))
 
@@ -51,25 +56,39 @@ function ConversationList(props) {
     for (const contacto in Contactos){
       // Para acceder a elementos de la propiedad - console.log(`${contacto} contiene ${Contactos[contacto][2]}`);
       arregloImpresion.push(
-      <ListItem divider>
-        <button onClick={()=>{RecibirMensajes(Contactos[contacto][2])}} style={{width:"100%", height:"100%", margin:"0px"}}>
-        <ListItemAvatar className={classes.avatar}>
-        <Avatar>{contacto[0]}</Avatar>
+      <ListItem divider className={classes.item}> 
+        <Button 
+          onClick={()=>{RecibirMensajes(Contactos[contacto][2])}} 
+          className={classes.btn}
+          fullWidth
+        >
+        <ListItemAvatar>
+          <Avatar>{contacto[0]}</Avatar>
         </ListItemAvatar>
         <ListItemText 
           primary= {Contactos[contacto][2]}
           secondary= {Contactos[contacto][0]}
+          className={classes.text}
         />
-        <Typography className={classes.time} color="textSecondary">{Contactos[contacto][1]}</Typography>
-        </button>
+        <Typography
+          color="textSecondary"
+        >
+          {Contactos[contacto][1]}
+        </Typography>
+        </Button>
       </ListItem>
     )
     };
       return arregloImpresion;
    
-    }else{return <ListItem divider>        <ListItemText 
-      primary= "Cargando..."
-    /></ListItem>}
+    }else{
+      return (
+      <ListItem divider>       
+        <ListItemText 
+          primary= "Cargando..."
+        />
+       </ListItem>
+      )}
   }
 
   return (

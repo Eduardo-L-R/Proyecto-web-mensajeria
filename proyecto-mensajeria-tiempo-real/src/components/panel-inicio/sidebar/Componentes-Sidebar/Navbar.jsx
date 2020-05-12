@@ -5,6 +5,7 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import ChatIcon from '@material-ui/icons/Chat';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles';
 
 import { connect } from "react-redux";
@@ -13,6 +14,7 @@ const useStyles = makeStyles(theme => ({
   offset: theme.mixins.toolbar,
   grow: {flexGrow: 1},
   icon: {color: "#616161"},
+  avatar: {marginRight: theme.spacing(2)},
   bgColor: {backgroundColor: "#eeeeee"}
 }))
 
@@ -25,8 +27,13 @@ function Navbar(props) {
       return(
         <AppBar elevation={0} position='relative' className={classes.bgColor}>
           <Toolbar >
-              <Avatar>{props.Nombre[0]}</Avatar>
-              <h3 style={{color:"gray", fontSize:"1rem", marginLeft:"10px", fontFamily:"Roboto"}}>{nombre}</h3>
+              <Avatar className={classes.avatar}>{props.Nombre[0]}</Avatar>
+              <Typography 
+                variant="h6"
+                className={classes.icon}
+              >
+                {nombre}
+              </Typography>
               <div className={classes.grow} />
               <IconButton aria-label="new chat">  
                 <ChatIcon className={classes.icon}/>

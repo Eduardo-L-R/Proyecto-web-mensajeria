@@ -3,6 +3,7 @@ import {Route, Switch} from 'react-router-dom'
 import IniciarSession from './iniciar-sesion/SignIn';
 import Registrarse from './registrarse/SignUp';
 import PanelDeInicio from './panel-inicio/PanelDeInicio';
+import Profile from './panel-inicio/sidebar/Componentes-Sidebar/Profile';
 
 
 export const Enrutador = ()=>{
@@ -19,6 +20,9 @@ export const Enrutador = ()=>{
             </Route>
             <Route path="/Panel-Inicio">
                 <PanelDeInicio />
+            </Route>
+            <Route path="/Profile">
+                <Profile />
             </Route>
         </Switch>
     )
