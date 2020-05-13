@@ -10,5 +10,6 @@ const reducers = combineReducers({
 });
 
 const store = createStore(reducers, applyMiddleware(reduxThunk, logger));
+// const store = createStore(reducers, applyMiddleware(reduxThunk));
 
 export default store;
