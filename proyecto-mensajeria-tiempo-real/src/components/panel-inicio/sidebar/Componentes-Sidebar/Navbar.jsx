@@ -35,7 +35,10 @@ function Navbar(props) {
                 {nombre}
               </Typography>
               <div className={classes.grow} />
-              <IconButton aria-label="new chat">  
+              <IconButton 
+                aria-label="new chat"
+                onClick={() => props.toggle()}
+              >  
                 <ChatIcon className={classes.icon}/>
               </IconButton>
               <IconButton aria-label="options">              

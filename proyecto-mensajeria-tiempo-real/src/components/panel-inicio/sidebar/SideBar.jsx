@@ -14,11 +14,11 @@ const useStyles = makeStyles({
   }
 })
 
-function SideBar() {
+function SideBar(props) {
   const classes = useStyles();
   return (
     <div className={classes.container}>
-        <Navbar />
+        <Navbar toggle={props.toggle}/>
         <SearchBar />
         <ConversationList />
     </div>

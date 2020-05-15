@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import ChatContainer from './contenedor-chat/ChatContainer'
 import SideBar from './sidebar/SideBar'
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,9 +13,16 @@ import {
   register,
   signIn,
 } from "../../store/actions/user-actions";
+import NewConversation from './sidebar/Componentes-Sidebar/NewConversation';
 
+const useStyle = makeStyles({
+  container: {
+    display: "flex",
+    flexFlow: "row wrap"
+  }
+});
 
-export function PanelDeInicio(props){
+function PanelDeInicio(props){
 
   useEffect(async () => {
     await firebase.firestore().collection("emailUsuarios").doc(props.currentEmail).get().then(async function(doc) {
@@ -38,21 +45,26 @@ export function PanelDeInicio(props){
 
   }, []);
   
-    const useStyle = makeStyles({
-      container: {
-        display: "flex",
-        flexFlow: "row wrap"
-      }
-    });
-    const classes = useStyle();
-
-    return (
-      <div className={classes.container}>
-        <SideBar />
-        <ChatContainer />
-      </div>
-    )
+  const classes = useStyle();
+  const [open, setOpen] = useState(false)
+  
+  const handleToggle = () => {
+    setOpen(!open)
   }
+
+  return (
+    <div className={classes.container}>
+      <SideBar 
+        toggle={handleToggle}
+      />
+      <NewConversation 
+        open={open} 
+        toggle={handleToggle}
+      />
+      <ChatContainer />
+    </div>
+  )
+}
 
 
 
