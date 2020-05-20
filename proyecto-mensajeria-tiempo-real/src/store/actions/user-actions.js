@@ -45,6 +45,11 @@ export const setEditingMessage = (message) => {
           payload: {message}}; 
 }
 
+export const setServerContacts = (ServerContacts) => {
+  return {type : "SET_SERVER_CONTACTS",
+          payload: {ServerContacts}}; 
+}
+
 export const setCurrentClear = (stateToClear) => {
   if(stateToClear === "clearRegister"){
     return {type: "CLEAR_REGISTER"}

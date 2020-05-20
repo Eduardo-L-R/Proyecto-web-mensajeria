@@ -23,6 +23,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function NewConversation(props) {
+
   const classes = useStyles();
   return (
     <Drawer

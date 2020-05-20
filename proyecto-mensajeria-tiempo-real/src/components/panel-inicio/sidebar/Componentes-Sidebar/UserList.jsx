@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { 
   makeStyles,
   List,
@@ -8,6 +8,18 @@ import {
   Button,
   Avatar
 } from '@material-ui/core'
+
+import firebase from 'firebase';
+import { connect } from "react-redux";
+import {
+  setCurrentRegister,
+  setCurrentLogin,
+  setUser,
+  setMessages,
+  register,
+  signIn,
+  setServerContacts
+} from "../../../../store/actions/user-actions";
 
 const useStyles = makeStyles(theme => ({
   btn: {
@@ -28,26 +40,98 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function UserList() {
+function UserList(props) {
   const classes = useStyles();
-  return (
-    <List className={classes.container}>
-      <ListItem divider className={classes.item}> 
+
+  useEffect(async () => {
+    await firebase.firestore().collection("Usuarios").onSnapshot(function(collection) {     
+      let arregloContactosAgregarbles = [];     
+      // let arrayTasks = [];     
+      collection.forEach(doc => {
+        //Colocar cada uno de los documentos que obtenga de la base de datos                
+        // arrayTasks.push(doc.data());
+        arregloContactosAgregarbles.push(    
+          // doc.data()
+        );
+      });
+      // console.log("Contactos obtenido: ",arrayTasks);
+      props.setServerContacts(arregloContactosAgregarbles);
+    });  
+  
+  }, []);
+
+  function CargandoContactosDisponibles(){
+
+  //   await firebase.firestore().collection("Usuarios").doc(props.currentEmail).get().then(async function(doc) {
+  //   }).catch(function(error) {
+  //     console.log("Error getting document:", error);
+  // }); 
+  if(props.ServerContacts){
+    props.ServerContacts.map((contacto)=>{
+      return(
+        <ListItem divider className={classes.item}> 
         <Button
           className={classes.btn}
           fullWidth
         >
           <ListItemAvatar>
-            <Avatar>J</Avatar>
+          <Avatar>{contacto[0]}</Avatar>
           </ListItemAvatar>
           <ListItemText 
-            primary= 'John Doe'
+            primary= {contacto}
             className={classes.text}
           />
         </Button>
-      </ListItem>
+        </ListItem>
+      )
+    })
+  }
+    console.log (props.ServerContacts);
+  }
+
+  function AgregandoNuevoContacto(){
+
+  }
+
+  return (
+    <List className={classes.container}>
+      {
+      // JSON.stringify(props.ServerContacts)
+      props.ServerContacts
+      .map((elemento)=>{
+        return (elemento);
+      })
+
+      }
     </List>
   )
 }
 
-export default UserList
+// Acciones y states de redux importadas
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+    currentEmail: state.user.currentLogin.email,
+    Nombre: state.user.currentUser.Nombre,
+    Contacts: state.user.currentContacts,
+    Mensajes: state.user.currentMensajes,
+    ServerContacts: state.user.currentServerContacts,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setCurrentRegister: event => dispatch(setCurrentRegister(event)),
+    setCurrentLogin: event => dispatch(setCurrentLogin(event)),
+    setServerContacts: serverContacts => dispatch(setServerContacts(serverContacts)),
+    register: () => dispatch(register()),
+    signIn: (callback) => dispatch(signIn(callback)),
+    setUser: (informacion) => dispatch(setUser(informacion)),
+    setMessages: (mensajes,contacto) => dispatch(setMessages(mensajes,contacto))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserList);

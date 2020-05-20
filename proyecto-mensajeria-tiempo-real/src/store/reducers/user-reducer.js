@@ -6,6 +6,7 @@ const INITIAL_STATE = {
     currentContactMensaje: null,
     currentMensajes: null,
     currentEditingMessage: "",
+    currentServerContacts: [],
   };
   
   const userReducer = (previousState = INITIAL_STATE, action) => {
@@ -50,6 +51,11 @@ const INITIAL_STATE = {
         return{
           ...previousState,
           currentEditingMessage: action.payload.message,
+        };
+      case "SET_SERVER_CONTACTS":
+        return{
+          ...previousState,
+          currentServerContacts: action.payload.ServerContacts,
         };
       case "CLEAR_REGISTER":
         return {
