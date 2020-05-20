@@ -51,7 +51,7 @@ function UserList(props) {
         //Colocar cada uno de los documentos que obtenga de la base de datos                
         // arrayTasks.push(doc.data());
         arregloContactosAgregarbles.push(    
-          // doc.data()
+          doc.data()
         );
       });
       // console.log("Contactos obtenido: ",arrayTasks);
@@ -66,27 +66,29 @@ function UserList(props) {
   //   }).catch(function(error) {
   //     console.log("Error getting document:", error);
   // }); 
-  if(props.ServerContacts){
-    props.ServerContacts.map((contacto)=>{
-      return(
-        <ListItem divider className={classes.item}> 
-        <Button
-          className={classes.btn}
-          fullWidth
-        >
-          <ListItemAvatar>
-          <Avatar>{contacto[0]}</Avatar>
-          </ListItemAvatar>
-          <ListItemText 
-            primary= {contacto}
-            className={classes.text}
-          />
-        </Button>
-        </ListItem>
-      )
-    })
-  }
-    console.log (props.ServerContacts);
+    let ArregloEtiquetas = [];
+    if(props.ServerContacts !== []){
+      console.log("Se ingreso al if");
+      props.ServerContacts.map((contacto)=>{
+        ArregloEtiquetas.push(
+          <ListItem divider className={classes.item}> 
+          <Button
+            className={classes.btn}
+            fullWidth
+          >
+            <ListItemAvatar>
+            <Avatar>{contacto.Nombre[0]}</Avatar>
+            </ListItemAvatar>
+            <ListItemText 
+              primary= {contacto.Nombre}
+              className={classes.text}
+            />
+          </Button>
+          </ListItem>
+        );
+      })
+    }
+    return ArregloEtiquetas;
   }
 
   function AgregandoNuevoContacto(){
@@ -95,12 +97,12 @@ function UserList(props) {
 
   return (
     <List className={classes.container}>
-      {
+      {CargandoContactosDisponibles()
       // JSON.stringify(props.ServerContacts)
-      props.ServerContacts
-      .map((elemento)=>{
-        return (elemento);
-      })
+      // props.ServerContacts
+      // .map((elemento)=>{
+      //   return (elemento);
+      // })
 
       }
     </List>

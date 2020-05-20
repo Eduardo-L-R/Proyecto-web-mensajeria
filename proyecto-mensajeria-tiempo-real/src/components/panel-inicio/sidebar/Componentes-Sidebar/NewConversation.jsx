@@ -42,7 +42,7 @@ function NewConversation(props) {
           >
             <ArrowBackIcon />
           </IconButton>
-          <Typography variant="h6">New chat</Typography>     
+          <Typography variant="h6">Chats disponibles</Typography>     
         </div>
       </div>
       <SearchBar />
