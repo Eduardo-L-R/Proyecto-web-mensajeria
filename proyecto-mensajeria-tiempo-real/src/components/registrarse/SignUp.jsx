@@ -62,50 +62,40 @@ function SignUp(props) {
   const classes = useStyles();
   let history = useHistory();
 
-  async function agregandoUsuarioDB(firstName, lastName, email){
-    console.log("agregandoUsuarioDB1");
-    await firebase.firestore().collection(firstName +" "+lastName).add({
-      Admin: "Creado para generar coleccion.",
-      })
-    .then(function(docRef) {
-      console.log("agregandoUsuarioDB2");
-      // console.log("Document written (1) with ID: ", docRef.id);
-      firebase.firestore().collection(firstName +" "+lastName).doc("Contactos").set({
-        [firstName +" "+lastName]: ["mensajes bajo", "hora", firstName +" "+lastName],
+  function agregandoUsuarioDB(firstName, lastName, email){
+    // console.log("1firestore",firstName,lastName,email);
+    return new Promise(
+      async (resolve,reject)=>{
+        try{
+          await firebase.firestore().collection(firstName +" "+lastName).add({
+            Admin: "Creado para generar coleccion.",
+            });
+          // console.log("2firestore",firstName,lastName,email);
+          await firebase.firestore().collection(firstName +" "+lastName).doc("Contactos").set({
+              [firstName +" "+lastName]: ["mensajes bajo", "hora", firstName +" "+lastName],
+            });
+          // console.log("3firestore",firstName,lastName,email);
+          await firebase.firestore().collection(firstName +" "+lastName).doc(firstName +" "+lastName).set({
+            1: ["mensajes bajo", "hora", "Bienvenido, los mensajes aca son privados"],
+            });
+              // console.log("4firestore",firstName,lastName,email);
+          await firebase.firestore().collection("Usuarios").doc(firstName +" "+lastName).set({
+            Email: email,
+            Nombre: firstName +" "+lastName,
+            PhotoURL: "www.google.com",
+            otros: "....",
+            });
+          // console.log("5firestore",firstName,lastName,email);
+          await firebase.firestore().collection("emailUsuarios").doc(email).set({
+            Nombre: firstName +" "+lastName,
+            });
+          resolve(true);  
         }
-      )
-      .then(function(docRef) {
-
-        console.log("Document written (2) with ID: ", docRef.id);
-        firebase.firestore().collection(firstName +" "+lastName).doc(firstName +" "+lastName).set({
-          1: ["mensajes bajo", "hora", "Bienvenido, los mensajes aca son privados"],
-          }
-          )
-          .then(function(docRef) {
-
-            console.log("Document written (3) with ID: ", docRef.id);
-            firebase.firestore().collection("Usuarios").doc(firstName +" "+lastName).set({
-              Email: email,
-              Nombre: firstName +" "+lastName,
-              PhotoURL: "www.google.com",
-              otros: "....",
-              })
-              .then(function(docRef) {
-
-                console.log("Document written with ID: ", docRef.id);
-                firebase.firestore().collection("emailUsuarios").doc(email).set({
-                  Nombre: firstName +" "+lastName,
-                  })
-                  .then(function(docRef) {
-                      console.log("Document written (4) with ID: ", docRef.id);
-                  })
-              })
-          })
-      })
-    })
-    .catch(function(error) {
-        console.error("Error adding document: ", error);
-    });
+        catch(e){
+          reject(e);
+        }
+      }
+    )
   }
 
   return (
@@ -181,8 +171,8 @@ function SignUp(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={(e)=>{ e.preventDefault();
-                            agregandoUsuarioDB(props.user.currentRegister.firstName,props.user.currentRegister.lastName,props.user.currentRegister.email);
+            onClick={async (e)=>{ e.preventDefault();
+                            await agregandoUsuarioDB(props.user.currentRegister.firstName,props.user.currentRegister.lastName,props.user.currentRegister.email);
                             props.register((ruta) => history.push(ruta));}}
           >
             Register
