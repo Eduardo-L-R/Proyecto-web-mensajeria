@@ -46,10 +46,10 @@ function PanelDeInicio(props){
   }, []);
   
   const classes = useStyle();
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   
-  const handleToggle = () => {
-    setOpen(!open)
+  const handleToggle = (boolean) => {
+    setOpen(boolean)
   }
 
   return (

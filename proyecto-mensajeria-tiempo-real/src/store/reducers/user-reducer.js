@@ -1,6 +1,8 @@
 const INITIAL_STATE = {
     currentRegister: {},
-    currentLogin: {email: "zniphers@gmail.com"},
+    currentLogin: {
+      email: ""
+  },
     currentUser: {},
     currentContacts: null,
     currentContactMensaje: null,

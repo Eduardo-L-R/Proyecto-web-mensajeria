@@ -37,7 +37,7 @@ function Navbar(props) {
               <div className={classes.grow} />
               <IconButton 
                 aria-label="new chat"
-                onClick={() => props.toggle()}
+                onClick={() => props.toggle(true)}
               >  
                 <ChatIcon className={classes.icon}/>
               </IconButton>

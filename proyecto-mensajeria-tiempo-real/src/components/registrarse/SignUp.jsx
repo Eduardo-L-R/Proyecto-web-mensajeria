@@ -62,57 +62,49 @@ function SignUp(props) {
   const classes = useStyles();
   let history = useHistory();
 
-  function agregandoUsuarioDB(firstName, lastName, email){
-    firebase.firestore().collection(firstName +" "+lastName).add({
+  async function agregandoUsuarioDB(firstName, lastName, email){
+    console.log("agregandoUsuarioDB1");
+    await firebase.firestore().collection(firstName +" "+lastName).add({
       Admin: "Creado para generar coleccion.",
-      }
-      )
-      .then(function(docRef) {
-          alert("Document written with ID: ", docRef.id);
       })
-      .catch(function(error) {
-          console.error("Error adding document: ", error);
-    });
-    firebase.firestore().collection(firstName +" "+lastName).doc("Contactos").set({
+    .then(function(docRef) {
+      console.log("agregandoUsuarioDB2");
+      // console.log("Document written (1) with ID: ", docRef.id);
+      firebase.firestore().collection(firstName +" "+lastName).doc("Contactos").set({
         [firstName +" "+lastName]: ["mensajes bajo", "hora", firstName +" "+lastName],
         }
       )
       .then(function(docRef) {
-          alert("Document written with ID: ", docRef.id);
+
+        console.log("Document written (2) with ID: ", docRef.id);
+        firebase.firestore().collection(firstName +" "+lastName).doc(firstName +" "+lastName).set({
+          1: ["mensajes bajo", "hora", "Bienvenido, los mensajes aca son privados"],
+          }
+          )
+          .then(function(docRef) {
+
+            console.log("Document written (3) with ID: ", docRef.id);
+            firebase.firestore().collection("Usuarios").doc(firstName +" "+lastName).set({
+              Email: email,
+              Nombre: firstName +" "+lastName,
+              PhotoURL: "www.google.com",
+              otros: "....",
+              })
+              .then(function(docRef) {
+
+                console.log("Document written with ID: ", docRef.id);
+                firebase.firestore().collection("emailUsuarios").doc(email).set({
+                  Nombre: firstName +" "+lastName,
+                  })
+                  .then(function(docRef) {
+                      console.log("Document written (4) with ID: ", docRef.id);
+                  })
+              })
+          })
       })
-      .catch(function(error) {
-          console.error("Error adding document: ", error);
-    });
-    firebase.firestore().collection(firstName +" "+lastName).doc(firstName +" "+lastName).set({
-      1: ["mensajes bajo", "hora", "Bienvenido, los mensajes aca son privados"],
-      }
-      )
-      .then(function(docRef) {
-          alert("Document written with ID: ", docRef.id);
-      })
-      .catch(function(error) {
-          console.error("Error adding document: ", error);
-    });
-    firebase.firestore().collection("Usuarios").doc(firstName +" "+lastName).set({
-      Email: email,
-      Nombre: firstName +" "+lastName,
-      PhotoURL: "www.google.com",
-      otros: "....",
-      })
-      .then(function(docRef) {
-          console.log("Document written with ID: ", docRef.id);
-      })
-      .catch(function(error) {
-          console.error("Error adding document: ", error);
-    });
-    firebase.firestore().collection("emailUsuarios").doc(email).set({
-      Nombre: firstName +" "+lastName,
-      })
-      .then(function(docRef) {
-          console.log("Document written with ID: ", docRef.id);
-      })
-      .catch(function(error) {
-          console.error("Error adding document: ", error);
+    })
+    .catch(function(error) {
+        console.error("Error adding document: ", error);
     });
   }
 

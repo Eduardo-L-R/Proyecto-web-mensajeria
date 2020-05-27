@@ -32,13 +32,16 @@ function NewConversation(props) {
       }}
       variant='temporary'
       open={props.open}
-      onClose={props.toggle ? props.toggle : null}
+      onClose={
+        () => props.toggle(false)
+        // props.toggle ? props.toggle : null
+      }
     >
       <div className={classes.toolbar}>
         <div className={classes.header}>
           <IconButton 
             className={classes.backButton}
-            onClick={() => props.toggle()}
+            onClick={() => props.toggle(false)}
           >
             <ArrowBackIcon />
           </IconButton>

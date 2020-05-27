@@ -86,10 +86,6 @@ function UserList(props) {
     return ArregloEtiquetas;
   }
 
-  function AgregandoNuevoContacto(){
-
-  }
-
   return (
     <List className={classes.container}>
       {
