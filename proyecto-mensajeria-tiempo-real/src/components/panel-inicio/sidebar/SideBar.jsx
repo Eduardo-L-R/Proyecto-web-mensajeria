@@ -19,7 +19,7 @@ function SideBar(props) {
   return (
     <div className={classes.container}>
         <Navbar toggle={props.toggle}/>
-        <SearchBar />
+        {/* <SearchBar /> */}
         <ConversationList />
     </div>
   )

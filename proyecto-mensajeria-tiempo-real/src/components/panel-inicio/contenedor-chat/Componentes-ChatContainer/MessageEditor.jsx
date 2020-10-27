@@ -1,8 +1,7 @@
 import React from 'react'
 import { AppBar, Toolbar, IconButton, InputBase } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import EmojiIcon from '@material-ui/icons/SentimentSatisfiedOutlined';
-import MicIcon from '@material-ui/icons/Mic';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import SendIcon from '@material-ui/icons/Send';
 
 import firebase from "firebase";
@@ -101,15 +100,15 @@ function MessageEditor(props) {
         className={classes.bar}
       >
         <Toolbar>
-          <IconButton className={classes.icon}>            
+          {/* <IconButton className={classes.icon}>            
             <EmojiIcon />
-          </IconButton>
+          </IconButton> */}
           <InputBase value={props.editingMessage} onChange={(e)=>props.setEditingMessage(e.target.value)} className={classes.input} multiline/>
-          <IconButton onClick={()=>limpiarChat()} className={classes.icon}>
-            <MicIcon />
-          </IconButton>
           <IconButton onClick={()=>nuevoMensaje()} className={classes.icon}>            
             <SendIcon />
+          </IconButton>
+          <IconButton onClick={()=>limpiarChat()} className={classes.icon}>
+            <DeleteForeverIcon />
           </IconButton>
         </Toolbar>
       </AppBar>

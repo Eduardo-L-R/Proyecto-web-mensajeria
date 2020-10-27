@@ -41,9 +41,9 @@ function Navbar(props) {
               >  
                 <ChatIcon className={classes.icon}/>
               </IconButton>
-              <IconButton aria-label="options">              
+              {/* <IconButton aria-label="options">              
                 <MoreVertIcon className={classes.icon}/>
-              </IconButton>
+              </IconButton> */}
           </Toolbar>
         </AppBar>
       )

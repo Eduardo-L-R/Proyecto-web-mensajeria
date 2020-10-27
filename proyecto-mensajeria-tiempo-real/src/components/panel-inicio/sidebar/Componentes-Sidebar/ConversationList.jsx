@@ -67,13 +67,13 @@ function ConversationList(props) {
         </ListItemAvatar>
         <ListItemText 
           primary= {Contactos[contacto][2]}
-          secondary= {Contactos[contacto][0]}
+          // secondary= {Contactos[contacto][0]}
           className={classes.text}
         />
         <Typography
           color="textSecondary"
         >
-          {Contactos[contacto][1]}
+          {/* {Contactos[contacto][1]} */}
         </Typography>
         </Button>
       </ListItem>

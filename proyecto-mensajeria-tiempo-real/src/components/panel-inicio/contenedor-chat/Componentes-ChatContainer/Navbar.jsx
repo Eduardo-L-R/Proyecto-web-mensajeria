@@ -35,16 +35,22 @@ function Navbar(props) {
     return props.ContactoMensajes[0]}else{}
   }
 
+  function valorNombre(){
+    if(props.ContactoMensajes !== null && props.ContactoMensajes !== undefined){
+      return <Typography variant="h6" className={classes.icon}>{props.ContactoMensajes}</Typography>}else{
+        return <Typography variant="h6" className={classes.icon}>Elija un contacto</Typography>
+      }
+  }
   return (
     <>
       <AppBar elevation={0} position='relative' className={classes.bar}>
         <Toolbar >
             <Avatar className={classes.avatar}>{valorAvatar()}</Avatar>
-            <Typography variant="h6" className={classes.icon}>{props.ContactoMensajes}</Typography>
+            {valorNombre()}
             <div className={classes.grow} />
-            <IconButton aria-label="options">              
+            {/* <IconButton aria-label="options">              
               <MoreVertIcon className={classes.icon}/>
-            </IconButton>
+            </IconButton> */}
         </Toolbar>
       </AppBar>
       {/* <div className={classes.offset} />   */}

@@ -91,7 +91,7 @@ function MessageList(props) {
   return (
     <> 
       <List className={classes.container}>
-        <Button color="primary" fullWidth>Show Previous Message!</Button>
+        {/* <Button color="primary" fullWidth>Show Previous Message!</Button> */}
         {MostrarMensajes()}
       </List>
     </>

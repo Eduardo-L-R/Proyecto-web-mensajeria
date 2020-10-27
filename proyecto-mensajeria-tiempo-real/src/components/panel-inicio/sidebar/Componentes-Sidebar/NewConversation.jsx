@@ -45,10 +45,10 @@ function NewConversation(props) {
           >
             <ArrowBackIcon />
           </IconButton>
-          <Typography variant="h6">Chats disponibles</Typography>     
+          <Typography variant="h6">Generar chat nuevo con:</Typography>     
         </div>
       </div>
-      <SearchBar />
+      {/* <SearchBar /> */}
       <UserList />
     </Drawer>
   )

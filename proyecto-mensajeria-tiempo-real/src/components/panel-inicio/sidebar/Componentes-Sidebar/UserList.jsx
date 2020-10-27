@@ -45,17 +45,17 @@ function UserList(props) {
 
   useEffect(() => {
     let subscribe = firebase.firestore().collection("Usuarios").onSnapshot(function(collection) {     
-      let arregloContactosAgregarbles = [];     
+      let arregloContactosAgregables = [];     
       // let arrayTasks = [];     
       collection.forEach(doc => {
         //Colocar cada uno de los documentos que obtenga de la base de datos                
         // arrayTasks.push(doc.data());
-        arregloContactosAgregarbles.push(    
+        arregloContactosAgregables.push(    
           doc.data()
         );
       });
       // console.log("Contactos obtenido: ",arrayTasks);
-      props.setServerContacts(arregloContactosAgregarbles);
+      props.setServerContacts(arregloContactosAgregables);
     });  
     return () => subscribe();
   }, []);
@@ -70,6 +70,7 @@ function UserList(props) {
           <Button
             className={classes.btn}
             fullWidth
+            onClick={() => AgregandoNuevoContacto(props.Nombre, contacto["Nombre"])}
           >
             <ListItemAvatar>
             <Avatar>{contacto.Nombre[0]}</Avatar>
@@ -86,8 +87,61 @@ function UserList(props) {
     return ArregloEtiquetas;
   }
 
-  function AgregandoNuevoContacto(){
+  function AgregandoNuevoContacto(nombre, contacto){
+      console.log('cosas del contacto nuevo:',nombre, contacto)
+      firebase.firestore().collection(nombre).doc("Contactos").update({
+        [contacto]: [
+          "mensaje bajo",
+          "hora",
+          contacto
+        ]
+      })
+      .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+      });
+      firebase.firestore().collection(contacto).doc(nombre).set({
+        1: [
+          "left",
+          "12:50",
+          `Has comenzado una conversacion con ${nombre}`
+        ]
+      })
+      .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+      });
 
+      firebase.firestore().collection(contacto).doc("Contactos").update({
+        [nombre]: [
+          "mensaje bajo",
+          "hora",
+          nombre
+        ]
+      })
+      .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+      });
+      firebase.firestore().collection(nombre).doc(contacto).set({
+        1: [
+          "left",
+          "12:50",
+          `Has comenzado una conversacion con ${contacto}`
+        ]
+      })
+      .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+      });
   }
 
   return (
