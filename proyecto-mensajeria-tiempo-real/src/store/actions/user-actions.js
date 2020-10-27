@@ -101,14 +101,14 @@ export const register = (callback) => {
     let { email, password } = getState().user.currentRegister;
     auth.createUserWithEmailAndPassword(email, password)
     .then(()=>{
-      console.log("Registrado exitosamente");
+      alert("Registrado exitosamente");
       callback("/");
     })
     .catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+      alert(errorCode, errorMessage);
       dispatch(setCurrentClear("clearRegister"));
     });
     

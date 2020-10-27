@@ -26,20 +26,6 @@ import {
   signIn
 } from "../../store/actions/user-actions";
 
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
@@ -113,10 +99,6 @@ function SignIn(props) {
               id="password"
               autoComplete="current-password"
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
             <Button
               type="submit"
               fullWidth
@@ -131,21 +113,14 @@ function SignIn(props) {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
               </Grid>
               <Grid item>
-                {/* <Link href="#" variant="body2"> */}
                   <LinkRouter to={'/Registro'}>
                   {"Don't have an account? Sign Up"}
                   </LinkRouter>
-                {/* </Link> */}
               </Grid>
             </Grid>
             <Box mt={5}>
-              <Copyright />
-              
             </Box>
           </form>
         </div>
